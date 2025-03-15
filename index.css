@@ -1,0 +1,111 @@
+/* Top Bar */
+.top-bar {
+    background-color:rgb(3, 3, 99);
+    font-size: 14px;
+    color: white;
+    padding: 5px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Navigation Bar */
+.navbar-custom {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 20px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #007bff;
+}
+
+.account-cart {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.account-cart a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.account-cart img {
+    height: 20px;
+}
+
+/* Carousel */
+.carousel-item img {
+    max-height: 500px;
+    object-fit: cover;
+}
+
+/* Brands Section */
+.brand-logo {
+    max-height: 100px;
+    margin-bottom: 20px;
+}
+
+/* Product Card */
+.card {
+    border: none;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links li {
+        margin-bottom: 10px;
+    }
+
+    .top-bar {
+        flex-direction: column;
+        text-align: center;
+    }
+}
