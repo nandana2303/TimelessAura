@@ -52,6 +52,8 @@
                     <?php else: ?>
                         <li><a class="dropdown-item" href="login.html" id="loginBtn">Login</a></li>
                         <li><a class="dropdown-item" href="register.html" id="signupBtn">Signup</a></li>
+                        <li><a class="dropdown-item" href="adminregister.html" id="signupBtn">Admin Signup</a></li>
+                        <li><a class="dropdown-item" href="adminlogin.html" id="signupBtn">Admin Login</a></li>
                     <?php endif; ?>
                 </ul>
             </div>
@@ -86,7 +88,7 @@
        <div class="total-title">Total</div>
        <div class="total-price">$0</div>
     </div>
-    <button class="btn-buy">Buy now</button>
+    <button class="btn-buy" onclick="handleBuyNow()">Buy now</button>
     <i class="ri-close-line" id="cart-close"></i>
    </div> 
    

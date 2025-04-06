@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="../login.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+
+</head>
+<body>
+    <form action="adminlogin.php" method="post">
+        <div class="left">
+            <div>
+                <img src="../assets/watchbg2.avif" alt="Login Image" width="100%">
+                <p>Welcome Back!</p>
+                <a href="adminregister.html">New here? Register now</a>
+            </div>
+        </div>
+        <div class="right">
+            <h1>Login</h1>
+            <div>
+                <input type="email" name="adminEmail" placeholder="Email" required>
+                <span class="material-symbols-outlined person">person</span>
+            </div>
+            <div>
+                <input type="password" name="adminPassword" placeholder="Password" required>
+                <span class="material-symbols-outlined lock">lock</span>
+            </div>
+
+            <button type="submit">Login</button>
+            <a href="adminregister.html" class="login-link">New here? Register now</a>
+            
+        </div>
+    </form>
+</body>
+</html>
