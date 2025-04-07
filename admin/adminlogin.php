@@ -30,9 +30,9 @@ $adminPassword = $_POST['adminPassword'];
     // Check if user exists
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();
-        $_SESSION['userid'] = $user['userid']; // Store user ID for cart & orders
-        $_SESSION['Email'] = $adminEmail;
-        $_SESSION['UserName'] = $user['Name']; // Store user's name for navbar
+        $_SESSION['admin_id'] = $user['userid'];       // Use different key
+        $_SESSION['admin_email'] = $adminEmail;
+        $_SESSION['admin_name'] = $user['Name'];// Store user's name for navbar
 
         header("Location: admindashboard.php");
         exit();

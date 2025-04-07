@@ -52,8 +52,7 @@
                     <?php else: ?>
                         <li><a class="dropdown-item" href="login.html" id="loginBtn">Login</a></li>
                         <li><a class="dropdown-item" href="register.html" id="signupBtn">Signup</a></li>
-                        <li><a class="dropdown-item" href="adminregister.html" id="signupBtn">Admin Signup</a></li>
-                        <li><a class="dropdown-item" href="adminlogin.html" id="signupBtn">Admin Login</a></li>
+
                     <?php endif; ?>
                 </ul>
             </div>
@@ -91,4 +90,13 @@
     <button class="btn-buy" onclick="handleBuyNow()">Buy now</button>
     <i class="ri-close-line" id="cart-close"></i>
    </div> 
+   <script>
+        document.getElementById("logoutBtn").addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent immediate redirection
+        let confirmLogout = confirm("Are you sure you want to log out?");
+        if (confirmLogout) {
+            window.location.href = "logout.php"; // Redirect if confirmed
+        }
+    });
+    </script>
    

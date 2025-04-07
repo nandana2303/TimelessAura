@@ -49,3 +49,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+<script>
+    <script>
+    // After login, check if there's a pending item
+    const item = localStorage.getItem("pendingAddToCart");
+    if (item) {
+        const product = JSON.parse(item);
+
+        // Send to add_to_cart.php
+        $.post("add_to_cart.php", {
+            product_id: product.product_id,
+            product_name: product.product_name,
+            price: product.price
+        }, function (response) {
+            alert("Item added to cart after login!");
+            localStorage.removeItem("pendingAddToCart"); // clean up
+            window.location.href = "index.php"; // or wherever you want to send them
+        });
+    }
+</script>
+

@@ -1,4 +1,11 @@
 <?php
+session_start();
+if (!isset($_SESSION['userid'])) {
+    header("Location: login.html");
+    exit();
+}
+?>
+<?php
 require '../db_connection.php'; // Ensure this file contains your database connection code
 $ip_address = "http://127.0.0.1/javaproject/";
 
@@ -49,38 +56,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Product</title>
+    <link rel="stylesheet" href="addproduct.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script src="../jquery-3.7.1.min.js"></script>
 </head>
 <body>
-    <h2>Add Product</h2>
-    <form action="add_product.php" method="post" enctype="multipart/form-data">
-        <label for="product_name">Product Name:</label>
-        <input type="text" name="product_name" required><br>
-        
-        <label for="brand">Brand:</label>
-        <input type="text" name="brand" required><br>
+<h2 id="addProductHeading" style="display:none;">ADD PRODUCT</h2>
+<form action="add_product.php" method="post" enctype="multipart/form-data">    
+    <label for="product_name">Product Name:</label>
+    <input type="text" name="product_name" required>
 
-        <label for="category">Category:</label>
-        <input type="text" name="category" required><br>
-        
-        <label for="description">Description:</label>
-        <textarea name="description"></textarea><br>
-        
-        <label for="product_image">Product Image:</label>
-        <input type="file" name="product_image"><br>
-        
-        <label for="mrp_price">MRP Price:</label>
-        <input type="number" name="mrp_price" required><br>
-        
-        <label for="quantity">Quantity:</label>
-        <input type="number" name="quantity" required><br>
-        
-        <button type="submit">Add Product</button>
-    </form>
+    <label for="brand">Brand:</label>
+    <input type="text" name="brand" required>
+
+    <label for="category">Category:</label>
+    <input type="text" name="category" required>
+
+    <label for="description">Description:</label>
+    <textarea name="description"></textarea>
+
+    <label for="product_image">Product Image:</label>
+    <input type="file" name="product_image">
+
+    <label for="mrp_price">MRP Price:</label>
+    <input type="number" name="mrp_price" required>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" name="quantity" required>
+
+    <button type="submit">Add Product</button>
+</form>
+
 </body>
+<script>
+  $(document).ready(function() {
+    $('#addProductHeading').fadeIn(2500); // 1000ms = 1 second
+  });
+</script>
 </html>
