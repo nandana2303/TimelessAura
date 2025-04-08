@@ -2,6 +2,10 @@
 // Redirect if user not logged in
 session_start();
 require 'db_connection.php';
+if (!isset($_SESSION['UserName'])) {
+    echo "login_required";
+    exit;
+}
 
 // If user is not logged in
 if (!isset($_SESSION['userid'])) {

@@ -115,7 +115,7 @@
                         }
                 ?>
                         <div class="col-lg-3 col-md-4 col-sm-6">
-                        <a href="product.php?id=<?php echo $products[$i]['product_id']; ?>" class="text-decoration-none text-dark">
+                        <a href="cart.php?id=<?php echo $products[$i]['product_id']; ?>" class="text-decoration-none text-dark">
                             <div class="card">
                                 <img
                                     src="<?php echo $products[$i]['product_image']; ?>"
@@ -164,32 +164,45 @@
             <script
                 src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
             <script>
-                $(document).ready(function () {
-                    $(".add-to-cart").click(function () {
-    var product_id = $(this).data("id");
-    var product_name = $(this).data("name");
-    var price = $(this).data("price");
+               $(document).ready(function () {
+    $(".add-to-cart").click(function () {
+        const $btn = $(this);
+        $btn.prop("disabled", true).text("Adding...");
 
-    $.post("add_to_cart.php", {
-        product_id: product_id,
-        product_name: product_name,
-        price: price
-    }, function (response) {
-        response = response.trim();
-        if (response === "login_required") {
-            // Store product info temporarily
-            localStorage.setItem("pendingAddToCart", JSON.stringify({
-                product_id: product_id,
-                product_name: product_name,
-                price: price
-            }));
-            window.location.href = "login.html";
-        } else {
-            alert(response);
-        }
+        var product_id = $btn.data("id");
+        var product_name = $btn.data("name");
+        var price = $btn.data("price");
+
+        $.post("add_to_cart.php", {
+            product_id: product_id,
+            product_name: product_name,
+            price: price
+        }).done(function (response) {
+            response = response.trim();
+
+            if (response === "login_required") {
+                // Save for after login
+                localStorage.setItem("pendingAddToCart", JSON.stringify({
+                    product_id: product_id,
+                    product_name: product_name,
+                    price: price
+                }));
+
+                // Wait a bit before redirecting
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 300);
+            } else {
+                alert(response);
+            }
+        }).fail(function () {
+            alert("Something went wrong. Please try again.");
+        }).always(function () {
+            $btn.prop("disabled", false).text("Add to Cart");
+        });
     });
 });
-                });
+
             </script>
             
             <!-- <script src="script.js"></script> -->
@@ -199,13 +212,19 @@
                 // Check if user is logged in using PHP session data
                 var isLoggedIn = <?php echo isset($_SESSION['UserName']) ? 'true' : 'false'; ?>;
 
-                function handleBuyNow() {
-                    if (isLoggedIn) {
-                        window.location.href = "payment.html"; // Redirect to payment page
-                    } else {
-                        window.location.href = "login.html"; // Redirect to login page
-                    }
-                }
+                <script>
+    window.onload = function () {
+        const item = localStorage.getItem("pendingAddToCart");
+        if (item) {
+            const data = JSON.parse(item);
+            $.post("add_to_cart.php", data, function (res) {
+                alert(res);
+                localStorage.removeItem("pendingAddToCart");
+            });
+        }
+    };
+</script>
+
             </script>
         </body>
 
