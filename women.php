@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
     <script src="jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
     
 </head>
 <body>

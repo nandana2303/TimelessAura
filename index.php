@@ -31,6 +31,7 @@
                 rel="stylesheet">
             <link rel="stylesheet" href="index.css">
             <script src="jquery-3.7.1.min.js"></script>
+            
         </head>
 
         <body>
@@ -114,24 +115,33 @@
                             echo '<div class="carousel-item ' . $activeClass . '"><div class="d-flex flex-nowrap">';
                         }
                 ?>
-                        <div class="col-lg-3 col-md-4 col-sm-6">
-                        <a href="cart.php?id=<?php echo $products[$i]['product_id']; ?>" class="text-decoration-none text-dark">
-                            <div class="card">
-                                <img
-                                    src="<?php echo $products[$i]['product_image']; ?>"
-                                    class="card-img-top"
-                                    alt="Product">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title"><?php echo $products[$i]['product_name']; ?></h5>
-                                    <p class="card-text">₹<?php echo $products[$i]['mrp_price']; ?></p>
-                                    <button
-                                        class="btn btn-primary add-to-cart"
-                                        data-id="<?php echo $products[$i]['product_id']; ?>"
-                                        data-name="<?php echo htmlspecialchars($products[$i]['product_name'], ENT_QUOTES); ?>"
-                                        data-price="<?php echo $products[$i]['mrp_price']; ?>">Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
+                      <div class="col-lg-3 col-md-4 col-sm-6">
+    <div class="card">
+        <!-- Link only wraps image and product name -->
+        <a href="product.php?id=<?php echo $products[$i]['product_id']; ?>" class="text-decoration-none text-dark">
+            <img
+                src="<?php echo $products[$i]['product_image']; ?>"
+                class="card-img-top"
+                alt="Product">
+            <div class="card-body text-center">
+                <h5 class="card-title"><?php echo $products[$i]['product_name']; ?></h5>
+            </div>
+        </a>
+
+        <!-- Price and Add to Cart Button outside the link -->
+        <div class="card-body text-center">
+            <p class="card-text">₹<?php echo $products[$i]['mrp_price']; ?></p>
+            <button
+                class="btn btn-primary add-to-cart"
+                data-id="<?php echo $products[$i]['product_id']; ?>"
+                data-name="<?php echo htmlspecialchars($products[$i]['product_name'], ENT_QUOTES); ?>"
+                data-price="<?php echo $products[$i]['mrp_price']; ?>">
+                Add to Cart
+            </button>
+        </div>
+    </div>
+</div>
+
                     <?php
                         if ($i % 4 == 3 || $i == count($products) - 1) { // Close the carousel-item after 4 products
                             echo '</div></div>';
@@ -205,14 +215,13 @@
 
             </script>
             
-            <!-- <script src="script.js"></script> -->
+            <script src="script.js"></script>
             <!-- JavaScript Logic -->
            
             <script>
                 // Check if user is logged in using PHP session data
                 var isLoggedIn = <?php echo isset($_SESSION['UserName']) ? 'true' : 'false'; ?>;
 
-                <script>
     window.onload = function () {
         const item = localStorage.getItem("pendingAddToCart");
         if (item) {
@@ -224,8 +233,63 @@
         }
     };
 </script>
+<script>
+    // ✅ Add this function first
+    function updateCartCount() {
+        console.log("Updating cart count...");
+        $.get("cartcount.php", function (count) {
+            console.log("Cart count received:", count);
+            $("#cart-count").text(count);
+        });
+    }
 
-            </script>
+    // ✅ Then your main code
+    $(document).ready(function () {
+        updateCartCount(); // Load count on page load
+
+        $(document).on("click", ".add-to-cart", function () {
+            const $btn = $(this);
+            $btn.prop("disabled", true).text("Adding...");
+
+            var product_id = $btn.data("id");
+            var product_name = $btn.data("name");
+            var price = $btn.data("price");
+
+            $.post("add_to_cart.php", {
+                product_id: product_id,
+                product_name: product_name,
+                price: price
+            }).done(function (response) {
+    response = response.trim();
+    
+    if (response === "login_required") {
+        localStorage.setItem("pendingAddToCart", JSON.stringify({
+            product_id: product_id,
+            product_name: product_name,
+            price: price
+        }));
+        setTimeout(() => {
+            window.location.href = "login.html";
+        }, 300);
+    } else if (response === "out_of_stock") {
+        alert("Currently out of stock");
+    } else {
+        alert(response);
+        updateCartCount(); // ✅ Update cart count after successful add
+    }
+})
+.fail(function () {
+    alert("Something went wrong. Please try again.");
+})
+.always(function () {
+    $btn.prop("disabled", false).text("Add to Cart");
+});
+
+    });
+
+    });
+</script>
+
         </body>
 
     </html>

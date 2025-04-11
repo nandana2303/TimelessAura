@@ -105,5 +105,54 @@ const updateTotal = () => {
         }
     });
 
+    function updateCartCount() {
+        console.log("Updating cart count...");
+        $.get("cartcount.php", function (count) {
+            console.log("Cart count received:", count);
+            $("#cart-count").text(count);
+        });
+    }
+    
+    $(document).ready(function () {
+        updateCartCount(); // Load cart count on every page
+    
+        $(document).on("click", ".add-to-cart", function () {
+            const $btn = $(this);
+            $btn.prop("disabled", true).text("Adding...");
+    
+            var product_id = $btn.data("id");
+            var product_name = $btn.data("name");
+            var price = $btn.data("price");
+    
+            $.post("add_to_cart.php", {
+                product_id: product_id,
+                product_name: product_name,
+                price: price
+            }).done(function (response) {
+                response = response.trim();
+    
+                if (response === "login_required") {
+                    localStorage.setItem("pendingAddToCart", JSON.stringify({
+                        product_id: product_id,
+                        product_name: product_name,
+                        price: price
+                    }));
+                    setTimeout(() => {
+                        window.location.href = "login.html";
+                    }, 300);
+                } else if (response === "out_of_stock") {
+                    alert("Currently out of stock");
+                } else {
+                    alert(response);
+                    updateCartCount(); // ✅ refresh counter
+                }
+            }).fail(function () {
+                alert("Something went wrong. Please try again.");
+            }).always(function () {
+                $btn.prop("disabled", false).text("Add to Cart");
+            });
+        });
+    });
+    
     
 

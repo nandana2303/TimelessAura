@@ -57,39 +57,22 @@
                 </ul>
             </div>
 
-            <!-- Cart Icon -->
-            <div id="cart-icon" class="me-3">
-                <i class="ri-shopping-bag-4-fill"></i>
-                <span class="cart-item-count"></span>
-            </div>
-        </div>
-    </div>
-</nav>
+          <!-- Cart Icon -->
+         <!-- Cart Icon with Counter -->
+<a href="cart.php" class="text-dark text-decoration-none">
+  <div id="cart-icon" class="me-3 position-relative" style="cursor: pointer;">
+    <i class="ri-shopping-bag-4-fill fs-4"></i>
+    <!-- This span adds the counter on top-right -->
+    <span id="cart-count" style="font-size: 0.75rem;min-width: 18px;height: 18px;display: inline-flex;align-items: center;justify-content: center;"
+class="badge bg-danger rounded-circle px-2 position-absolute top-0 start-100 translate-middle">0</span>
+  </div>
+</a>
 
-   <div class="cart">
-    <h2 class="card-title">Your Cart</h2>
-    <div class="cart-content">
-        <!-- <div class="cart-box">
-            <img src="ppimg1.jpg" class="cart-img">
-            <div class="cart-detail">
-                <h2 class="cart-product-title">Patek Watch</h2>
-<span class="cart-price">$500</span>
-<div class="cart-quantity">
-    <button id="decrement">-</button>
-    <span class="number">1</span>
-    <button id="increment">+</button>
-</div>
-</div>
-<i class="ri-delete-bin-5-line cart-remove"></i>
-      </div> -->
-    </div>
-    <div class="total">
-       <div class="total-title">Total</div>
-       <div class="total-price">$0</div>
-    </div>
-    <button class="btn-buy" onclick="handleBuyNow()">Buy now</button>
-    <i class="ri-close-line" id="cart-close"></i>
-   </div> 
+
+
+</nav>
+<script src="script.js"></script>
+
    <script>
         document.getElementById("logoutBtn").addEventListener("click", function(event) {
         event.preventDefault(); // Prevent immediate redirection
