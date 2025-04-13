@@ -48,7 +48,7 @@ if (!isset($_SESSION['admin_id'])) {
 <body>
     <header>
         <div>
-        <a href="products.php">Products</a>
+        <a href="view_products.php">Products</a>
         <a href="add_product.php">Add Product</a>
         <a href="users.php">Users</a>
         <a href="adminlogout.php" id="logoutBtn">Logout</a>
