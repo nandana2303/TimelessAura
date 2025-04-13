@@ -40,30 +40,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="card watch-card">
-                <img src="./assets/ppimg2.jpg" class="card-img-top" alt="Watch 3">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Watch Name 3</h5>
-                    <p class="card-text">₹899</p>
-                    <p class="watch-description">Sporty digital watch with water resistance.</p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="card watch-card">
-                <img src="./assets/timg2.webp" class="card-img-top" alt="Watch 4">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Watch Name 4</h5>
-                    <p class="card-text">₹1,299</p>
-                    <p class="watch-description">Luxury automatic watch with sapphire glass.</p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                </div>
-            </div>
-        </div>
+        
         <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
             <div class="card watch-card">
                 <img src="./assets/timg1.webp" class="card-img-top" alt="Watch 2">
@@ -108,50 +85,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="card watch-card">
-                <img src="./assets/timg1.webp" class="card-img-top" alt="Watch 2">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Watch Name 2</h5>
-                    <p class="card-text">₹799</p>
-                    <p class="watch-description">Minimalist stainless steel wristwatch.</p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="card watch-card">
-                <img src="./assets/timg1.webp" class="card-img-top" alt="Watch 2">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Watch Name 2</h5>
-                    <p class="card-text">₹799</p>
-                    <p class="watch-description">Minimalist stainless steel wristwatch.</p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="card watch-card">
-                <img src="./assets/timg1.webp" class="card-img-top" alt="Watch 2">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Watch Name 2</h5>
-                    <p class="card-text">₹799</p>
-                    <p class="watch-description">Minimalist stainless steel wristwatch.</p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="card watch-card">
-                <img src="./assets/timg1.webp" class="card-img-top" alt="Watch 2">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Watch Name 2</h5>
-                    <p class="card-text">₹799</p>
-                    <p class="watch-description">Minimalist stainless steel wristwatch.</p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                </div>
-            </div>
-        </div>
+        
+        
+        
 
     </div>
 </section>

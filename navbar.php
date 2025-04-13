@@ -60,11 +60,17 @@
           <!-- Cart Icon -->
          <!-- Cart Icon with Counter -->
 <a href="cart.php" class="text-dark text-decoration-none">
+    <?php
+$cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
+?>
+<a href="cart.php" class="text-dark text-decoration-none">
   <div id="cart-icon" class="me-3 position-relative" style="cursor: pointer;">
     <i class="ri-shopping-bag-4-fill fs-4"></i>
-    <!-- This span adds the counter on top-right -->
     <span id="cart-count" style="font-size: 0.75rem;min-width: 18px;height: 18px;display: inline-flex;align-items: center;justify-content: center;"
-class="badge bg-danger rounded-circle px-2 position-absolute top-0 start-100 translate-middle">0</span>
+    class="badge bg-danger rounded-circle px-2 position-absolute top-0 start-100 translate-middle"><?php echo $cartCount; ?></span>
+  </div>
+</a>
+
   </div>
 </a>
 
@@ -82,4 +88,60 @@ class="badge bg-danger rounded-circle px-2 position-absolute top-0 start-100 tra
         }
     });
     </script>
+    <script>
+    // ✅ Add this function first
+    function updateCartCount() {
+        console.log("Updating cart count...");
+        $.get("cartcount.php", function (count) {
+            console.log("Cart count received:", count);
+            $("#cart-count").text(count);
+        });
+    }
+
+    // ✅ Then your main code
+    $(document).ready(function () {
+        updateCartCount(); // Load count on page load
+
+        $(document).on("click", ".add-to-cart", function () {
+            const $btn = $(this);
+            $btn.prop("disabled", true).text("Adding...");
+
+            var product_id = $btn.data("id");
+            var product_name = $btn.data("name");
+            var price = $btn.data("price");
+
+            $.post("add_to_cart.php", {
+                product_id: product_id,
+                product_name: product_name,
+                price: price
+            }).done(function (response) {
+    response = response.trim();
+    
+    if (response === "login_required") {
+        localStorage.setItem("pendingAddToCart", JSON.stringify({
+            product_id: product_id,
+            product_name: product_name,
+            price: price
+        }));
+        setTimeout(() => {
+            window.location.href = "login.html";
+        }, 300);
+    } else if (response === "out_of_stock") {
+        alert("Currently out of stock");
+    } else {
+        alert(response);
+        updateCartCount(); // ✅ Update cart count after successful add
+    }
+})
+.fail(function () {
+    alert("Something went wrong. Please try again.");
+})
+.always(function () {
+    $btn.prop("disabled", false).text("Add to Cart");
+});
+
+    });
+
+    });
+</script>
    

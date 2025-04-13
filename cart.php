@@ -56,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
     <title>My Cart</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="script.js"></script>
+    <script src="jquery-3.7.1.min.js"></script>
     <style>
         .cart-item {
             border-bottom: 1px solid #ddd;
@@ -91,7 +92,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
                 </div>
                 <div class="col-md-6">
                     <h5><?= htmlspecialchars($item['product_name']) ?></h5>
-                    <p class="mb-1">Quantity: <?= $item['quantity'] ?></p>
+                    <div class="d-flex align-items-center">
+    <button class="btn btn-outline-secondary btn-sm quantity-decrease" data-id="<?= $item['product_id'] ?>">−</button>
+    <span class="mx-2 quantity" id="qty-<?= $item['product_id'] ?>"><?= $item['quantity'] ?></span>
+    <button class="btn btn-outline-secondary btn-sm quantity-increase" data-id="<?= $item['product_id'] ?>">+</button>
+</div>
+
                     <p class="text-muted">Price: ₹<?= number_format($item['price'], 2) ?></p>
                     <form method="post" class="d-inline">
                 <input type="hidden" name="remove_product_id" value="<?= $item['product_id'] ?>">
@@ -132,6 +138,98 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
     <?php endif; ?>
 
 </div>
+<script>
+    // ✅ Add this function first
+    function updateCartCount() {
+        console.log("Updating cart count...");
+        $.get("cartcount.php", function (count) {
+            console.log("Cart count received:", count);
+            $("#cart-count").text(count);
+        });
+    }
 
+    // ✅ Then your main code
+    $(document).ready(function () {
+        updateCartCount();
+        // Handle + and - quantity buttons
+$(document).on("click", ".quantity-increase", function () {
+    const productId = $(this).data("id");
+    updateQuantity(productId, 1);
+});
+
+$(document).on("click", ".quantity-decrease", function () {
+    const productId = $(this).data("id");
+    updateQuantity(productId, -1);
+});
+ // Load count on page load
+
+        $(document).on("click", ".add-to-cart", function () {
+            const $btn = $(this);
+            $btn.prop("disabled", true).text("Adding...");
+
+            var product_id = $btn.data("id");
+            var product_name = $btn.data("name");
+            var price = $btn.data("price");
+
+            $.post("add_to_cart.php", {
+                product_id: product_id,
+                product_name: product_name,
+                price: price
+            }).done(function (response) {
+    response = response.trim();
+    
+    if (response === "login_required") {
+        localStorage.setItem("pendingAddToCart", JSON.stringify({
+            product_id: product_id,
+            product_name: product_name,
+            price: price
+        }));
+        setTimeout(() => {
+            window.location.href = "login.html";
+        }, 300);
+    } else if (response === "out_of_stock") {
+        alert("Currently out of stock");
+    } else {
+        alert(response);
+        updateCartCount(); // ✅ Update cart count after successful add
+    }
+})
+.fail(function () {
+    alert("Something went wrong. Please try again.");
+})
+.always(function () {
+    $btn.prop("disabled", false).text("Add to Cart");
+});
+
+    });
+
+    });
+  
+    function updateQuantity(productId, change) {
+        fetch('update_cart_quantity.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ product_id: productId, change: change })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                if (data.action === 'removed') {
+                    updateCartCount(); // 👈 Update cart count
+                    location.reload();
+                } else {
+                    document.getElementById('qty-' + productId).textContent = data.new_quantity;
+                    updateCartCount(); // 👈 Update cart count
+                    location.reload(); // Optional, for total price
+                }
+            } else {
+                alert(data.message || 'Update failed');
+            }
+        });
+    }
+
+</script>
 </body>
 </html>

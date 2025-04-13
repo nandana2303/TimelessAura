@@ -288,6 +288,32 @@
     });
 
     });
+    $(document).ready(function () {
+    $(".add-to-cart").click(function () {
+        const productId = $(this).data("id");
+        const productName = $(this).data("name");
+        const productPrice = $(this).data("price");
+
+        $.ajax({
+            url: "add_to_cart.php",
+            type: "POST",
+            data: {
+                id: productId,
+                name: productName,
+                price: productPrice
+            },
+            success: function (response) {
+                // Optionally parse JSON response
+                const res = JSON.parse(response);
+                if (res.status === "success") {
+                    // Update cart count on navbar
+                    $("#cart-count").text(res.count);
+                }
+            }
+        });
+    });
+});
+
 </script>
 
         </body>
