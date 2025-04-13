@@ -50,7 +50,6 @@ if (!isset($_SESSION['admin_id'])) {
         <div>
         <a href="products.php">Products</a>
         <a href="add_product.php">Add Product</a>
-        <a href="add_to_cart.php">Add to cart</a>
         <a href="users.php">Users</a>
         <a href="adminlogout.php" id="logoutBtn">Logout</a>
 </div>

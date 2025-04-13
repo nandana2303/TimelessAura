@@ -115,32 +115,28 @@
                             echo '<div class="carousel-item ' . $activeClass . '"><div class="d-flex flex-nowrap">';
                         }
                 ?>
-                      <div class="col-lg-3 col-md-4 col-sm-6">
-    <div class="card">
-        <!-- Link only wraps image and product name -->
-        <a href="product.php?id=<?php echo $products[$i]['product_id']; ?>" class="text-decoration-none text-dark">
-            <img
-                src="<?php echo $products[$i]['product_image']; ?>"
-                class="card-img-top"
-                alt="Product">
+                     <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+    <div class="card h-100">
+        <a href="product.php?id=<?= $products[$i]['product_id']; ?>" class="text-decoration-none text-dark">
+            <div class="img-container">
+                <img src="<?= $products[$i]['product_image']; ?>" class="card-img-top" alt="Product">
+            </div>
             <div class="card-body text-center">
-                <h5 class="card-title"><?php echo $products[$i]['product_name']; ?></h5>
+                <h5 class="card-title"><?= $products[$i]['product_name']; ?></h5>
             </div>
         </a>
-
-        <!-- Price and Add to Cart Button outside the link -->
         <div class="card-body text-center">
-            <p class="card-text">₹<?php echo $products[$i]['mrp_price']; ?></p>
-            <button
-                class="btn btn-primary add-to-cart"
-                data-id="<?php echo $products[$i]['product_id']; ?>"
-                data-name="<?php echo htmlspecialchars($products[$i]['product_name'], ENT_QUOTES); ?>"
-                data-price="<?php echo $products[$i]['mrp_price']; ?>">
+            <p class="card-text">₹<?= $products[$i]['mrp_price']; ?></p>
+            <button class="btn btn-primary add-to-cart"
+                    data-id="<?= $products[$i]['product_id']; ?>"
+                    data-name="<?= htmlspecialchars($products[$i]['product_name'], ENT_QUOTES); ?>"
+                    data-price="<?= $products[$i]['mrp_price']; ?>">
                 Add to Cart
             </button>
         </div>
     </div>
 </div>
+
 
                     <?php
                         if ($i % 4 == 3 || $i == count($products) - 1) { // Close the carousel-item after 4 products
