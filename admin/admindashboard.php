@@ -13,57 +13,73 @@ if (!isset($_SESSION['admin_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            padding: 0;
+            background: linear-gradient(to right, #f0f4ff, #eaf6ff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         header {
-            background-color: #222;
+            background-color: #2b3a55;
+            width: 100%;
             padding: 15px 0;
         }
 
         header div {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 40px;
         }
 
         header a {
             color: #fff;
             text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 17px;
             padding: 10px 20px;
             border-radius: 8px;
-            transition: background-color 0.3s ease;
+            transition: 0.3s;
         }
 
         header a:hover {
-            background-color: #444;
+            background-color: #435b78;
         }
+
     </style>
    
 </head>
 <body>
     <header>
         <div>
-        <a href="view_products.php">Products</a>
-        <a href="add_product.php">Add Product</a>
-        <a href="users.php">Users</a>
+        <a href="add_product.php">ADD PRODUCT</a>
+        <a href="view_products.php">VIEW PRODUCT</a>
+        <a href="users.php">USERS</a>
         <a href="adminlogout.php" id="logoutBtn">Logout</a>
 </div>
 </header>
 <center><h1>Welcome Admin</h1><center>
 <script>
-document.getElementById("logoutBtn").addEventListener("click", function(event) {
-        event.preventDefault(); // Prevent immediate redirection
-        let confirmLogout = confirm("Are you sure you want to log out?");
-        if (confirmLogout) {
-            window.location.href = "adminlogout.php"; // Redirect if confirmed
-        }
-    });
-    </script>
+document.addEventListener("DOMContentLoaded", function () {
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent immediate redirection
+            let confirmLogout = confirm("Are you sure you want to log out?");
+            if (confirmLogout) {
+                window.location.href = "adminlogout.php"; // Redirect if confirmed
+            }
+        });
+    }
+});
+</script>
 
 </body>
 

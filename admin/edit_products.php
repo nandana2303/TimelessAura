@@ -2,8 +2,8 @@
 session_start();
 require '../db_connection.php';
 
-if (!isset($_SESSION['userid'])) {
-    header("Location: login.html");
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: adminlogin.html");
     exit();
 }
 
@@ -39,60 +39,128 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Edit Product</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', sans-serif;
-            padding: 40px;
-        }
+        ..edit-form-container {
+    background: #ffffff;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+}
 
-        .edit-form-container {
-            background: #ffffff;
-            max-width: 600px;
-            margin: auto;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        }
+h2 {
+    text-align: center;
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
 
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 25px;
-        }
+label {
+    font-weight: 600;
+    margin-top: 15px;
+    display: block;
+    font-size: 16px;
+    color: #555;
+}
 
-        label {
-            font-weight: 500;
-            margin-top: 12px;
-        }
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+}
 
-        input[type="text"],
-        input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 6px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #0d6efd;
+    background-color: #fff;
+    box-shadow: 0 0 8px rgba(13, 110, 253, 0.3);
+    outline: none;
+}
+
+.btn-update {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin-top: 25px;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-update:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+}
+
+.btn-update:active {
+    transform: translateY(0);
+}
+
+        * {
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
-        .btn-update {
-            background-color: #0d6efd;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin-top: 25px;
-            border-radius: 8px;
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #f0f4ff, #eaf6ff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #2b3a55;
             width: 100%;
-            font-size: 16px;
-            transition: background-color 0.3s;
+            padding: 15px 0;
         }
 
-        .btn-update:hover {
-            background-color: #0b5ed7;
+        header div {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
         }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        header a:hover {
+            background-color: #435b78;
+        }
+
     </style>
 </head>
 <body>
+<header>
+        <div>
+        <a href="admindashboard.php">HOMEPAGE</a>
+        <a href="add_product.php">ADD PRODUCT</a>
+        <a href="view_products.php">VIEW PRODUCTS</a>
+        <a href="users.php">USERS</a>
+        <a href="adminlogout.php" id="logoutBtn">Logout</a>
+</div>
+</header>
 
 <div class="edit-form-container">
     <h2>Edit Product</h2>
@@ -118,6 +186,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p style="text-align:center;">Product not found.</p>
     <?php endif; ?>
 </div>
-
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent immediate redirection
+            let confirmLogout = confirm("Are you sure you want to log out?");
+            if (confirmLogout) {
+                window.location.href = "adminlogout.php"; // Redirect if confirmed
+            }
+        });
+    }
+});
+</script>
 </body>
 </html>
