@@ -1,6 +1,6 @@
 <?php
 include 'db_connection.php'; // make sure DB connection is available
-$sql = "SELECT * FROM products where category='women'";
+$sql = "SELECT * FROM products";
 $result = mysqli_query($conn, $sql);
 $products = [];
 

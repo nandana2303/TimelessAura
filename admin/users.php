@@ -7,13 +7,13 @@ if (!isset($_SESSION['admin_id'])) {
 
 require '../db_connection.php';
 
-// Delete user if delete button is clicked
+// Delete user
 if (isset($_GET['delete'])) {
     $delete_id = $_GET['delete'];
     $stmt = $conn->prepare("DELETE FROM registration WHERE userid = ?");
     $stmt->bind_param("i", $delete_id);
     $stmt->execute();
-    header("Location: users.php"); // Refresh page after deletion
+    header("Location: users.php"); 
     exit();
 }
 ?>
@@ -140,9 +140,10 @@ if (isset($_GET['delete'])) {
 <body>
 <header>
         <div>
-        <a href="admindashboard.php">HOMEPAGE</a>
+        <a href="admindashboard.php">HOME</a>
         <a href="add_product.php">ADD PRODUCT</a>
         <a href="view_products.php">VIEW PRODUCT</a>
+        <a href="view_orders.php">ORDERS</a>
         <a href="adminlogout.php" id="logoutBtn">Logout</a>
 </div>
 </header>
@@ -176,10 +177,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const logoutBtn = document.getElementById("logoutBtn");
     if (logoutBtn) {
         logoutBtn.addEventListener("click", function(event) {
-            event.preventDefault(); // Prevent immediate redirection
+            event.preventDefault(); 
             let confirmLogout = confirm("Are you sure you want to log out?");
             if (confirmLogout) {
-                window.location.href = "adminlogout.php"; // Redirect if confirmed
+                window.location.href = "adminlogout.php"; 
             }
         });
     }

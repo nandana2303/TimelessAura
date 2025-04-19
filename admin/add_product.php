@@ -153,9 +153,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <header>
         <div>
-        <a href="admindashboard.php">HOMEPAGE</a>
+        <a href="admindashboard.php">HOME</a>
         <a href="view_products.php">VIEW PRODUCT</a>
         <a href="users.php">USERS</a>
+        <a href="view_orders.php">ORDERS</a>
         <a href="adminlogout.php" id="logoutBtn">Logout</a>
 </div>
 </header>
@@ -197,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const logoutBtn = document.getElementById("logoutBtn");
     if (logoutBtn) {
         logoutBtn.addEventListener("click", function(event) {
-            event.preventDefault(); // Prevent immediate redirection
+            event.preventDefault(); 
             let confirmLogout = confirm("Are you sure you want to log out?");
             if (confirmLogout) {
                 window.location.href = "adminlogout.php"; // Redirect if confirmed

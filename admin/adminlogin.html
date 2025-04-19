@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <form action="adminlogin.php" method="post">
+    <form action="adminlogin.php" method="post" onsubmit="return validateForm()">
         <div class="left">
             <div>
                 <img src="../assets/watchbg2.avif" alt="Login Image" width="100%">
@@ -19,19 +19,60 @@
         </div>
         <div class="right">
             <h1>Login</h1>
-            <div>
-                <input type="email" name="adminEmail" placeholder="Email" required>
-                <span class="material-symbols-outlined person">person</span>
-            </div>
-            <div>
-                <input type="password" name="adminPassword" placeholder="Password" required>
-                <span class="material-symbols-outlined lock">lock</span>
-            </div>
 
+            <!-- Email Field -->
+            <div class="input-group" style="position: relative;">
+                <input type="email" id="adminEmail" name="adminEmail" placeholder="Email" required style="padding-right: 40px;">
+                <span class="material-symbols-outlined" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: black;">
+                    person
+                </span>
+            </div>
+            
+            <!-- Password Field with Eye Toggle -->
+            <div class="input-group" style="position: relative;">
+                <input type="password" id="adminPassword" name="adminPassword" placeholder="Password" style="padding-right: 40px;">
+                <span id="togglePassword" class="material-symbols-outlined" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+                    visibility_off
+                </span>
+            </div>
+            
             <button type="submit">Login</button>
             <a href="adminregister.html" class="login-link">New here? Register now</a>
-            
         </div>
     </form>
+
+    <!-- JavaScript for Validation + Show/Hide Password -->
+    <script>
+        document.getElementById("togglePassword").addEventListener("click", function () {
+            const passwordInput = document.getElementById("adminPassword");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                this.textContent = "visibility";
+            } else {
+                passwordInput.type = "password";
+                this.textContent = "visibility_off";
+            }
+        });
+
+        function validateForm() {
+            const email = document.getElementById("adminEmail").value.trim();
+            const password = document.getElementById("adminPassword").value.trim();
+
+            // Basic email pattern
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (email === "" || !emailPattern.test(email)) {
+                alert("Please enter a valid email.");
+                return false;
+            }
+
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                return false;
+            }
+
+            return true; // allow form submission
+        }
+    </script>
 </body>
 </html>

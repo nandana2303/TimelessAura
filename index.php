@@ -3,7 +3,7 @@
     require 'db_connection.php'; // Ensure database connection
 
     // Fetch 10 random products
-    $sql = "SELECT product_id, product_name, product_image, mrp_price FROM products ORDER BY RAND() LIMIT 10";
+    $sql = "SELECT product_id, product_name, product_image, mrp_price FROM products ORDER BY RAND() LIMIT 12";
     $result = $conn->query($sql);
 
     $products = [];

@@ -25,6 +25,7 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="index.php">HOME</a></li>
+                <li class="nav-item"><a class="nav-link" href="all.php">ALL</a></li>
                 <li class="nav-item"><a class="nav-link" href="men.php">MEN</a></li>
                 <li class="nav-item"><a class="nav-link" href="women.php">WOMEN</a></li>
                 <li class="nav-item"><a class="nav-link" href="kids.php">KIDS</a></li>

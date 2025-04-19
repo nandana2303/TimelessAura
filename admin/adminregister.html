@@ -6,33 +6,87 @@
     <title>Register Form</title>
     <link rel="stylesheet" href="../register.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+         <style>
+        .material-symbols-outlined {
+    color: #000 !important; /* Dark black icon */
+}  
+    </style>
 </head>
 <body>
 
-    <form action="adminregister.php" method="post">
+    <form action="adminregister.php" method="post" onsubmit="return validateRegisterForm()">
         <div class="left">
             <img src="../assets/watchbg.avif" alt="Register Image" width="100%" height="100%">
         </div>
         <div class="right">
             <h1>Register</h1>
+
+            <!-- Name -->
             <div class="input-group">
+                <input type="text" id="name" name="Name" placeholder="Name">
                 <span class="material-symbols-outlined">person</span>
-                <input type="text" name="Name" placeholder="Name" required>
             </div>
-            
+
+            <!-- Email -->
             <div class="input-group">
+                <input type="text" id="email" name="Email" placeholder="Email">
                 <span class="material-symbols-outlined">email</span>
-                <input type="text" name="Email" placeholder="Email" required>
             </div>
+
+            <!-- Password -->
             <div class="input-group">
-                <span class="material-symbols-outlined">lock</span>
-                <input type="password" name="Password" placeholder="Password" required>
+                <input type="password" id="password" name="Password" placeholder="Password">
+                <span class="material-symbols-outlined" id="togglePassword">visibility_off</span>
             </div>
-           
+
             <button type="submit">Register</button>
             <p>Already have an account? <a href="adminlogin.html">Login</a></p>
         </div>
     </form>
+
+    <script>
+        // Password visibility toggle
+        const toggle = document.getElementById("togglePassword");
+        const passwordInput = document.getElementById("password");
+
+        toggle.addEventListener("click", function () {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggle.textContent = "visibility";
+            } else {
+                passwordInput.type = "password";
+                toggle.textContent = "visibility_off";
+            }
+        });
+
+        // Alert-based validation
+       function validateRegisterForm() {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+    if (name === "") {
+        alert("Please enter your name.");
+        return false;
+    }
+
+    if (email === "" || !emailPattern.test(email)) {
+        alert("Please enter a valid email.");
+        return false;
+    }
+
+    if (!passwordPattern.test(password)) {
+        alert("Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a digit, and a special character.");
+        return false;
+    }
+
+    return true;
+}
+
+    </script>
 
 </body>
 </html>
